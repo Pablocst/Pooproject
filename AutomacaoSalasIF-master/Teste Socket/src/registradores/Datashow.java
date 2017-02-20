@@ -2,31 +2,28 @@ package registradores;
 
 public class Datashow implements Dispositivo
 {
+	private String nome;
 	private boolean status;
-
-	public Datashow(boolean status) 
+	
+	public Datashow(String nome, boolean status) 
 	{
-		super();
+		this.nome = nome;
 		this.status = status;
 	}
 
-	public boolean equals(Object obj) 
+	public String getNome()
 	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Datashow other = (Datashow) obj;
-		if (status != other.status)
-			return false;
-		return true;
+		return this.nome;
 	}
-
-	public boolean isStatus() 
+	
+	public void setNome(String nome)
 	{
-		return status;
+		this.nome = nome;
+	}
+	
+	public boolean getStatus()
+	{
+		return this.status;
 	}
 
 	public void setStatus(boolean status) 
@@ -36,7 +33,15 @@ public class Datashow implements Dispositivo
 
 	public String toString() 
 	{
-		return "Datashow status: " + status;
+		return "Datashow\nStatus: " + status;
 	}
-
+	
+	public boolean equals(Dispositivo datashow)
+	{
+		if(this.nome.equals(datashow.getNome()))
+		{
+			return true;
+		}
+		return false;
+	}
 }

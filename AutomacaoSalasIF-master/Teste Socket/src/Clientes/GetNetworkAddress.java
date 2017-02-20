@@ -1,4 +1,4 @@
-package clientes;
+package Clientes;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

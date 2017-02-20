@@ -2,17 +2,28 @@ package registradores;
 
 public class Arcondicionado implements Dispositivo
 {
+	private String nome;
 	private boolean status;
-
-	public Arcondicionado(boolean status) 
+	
+	public Arcondicionado(String nome, boolean status) 
 	{
-		super();
+		this.nome = nome;
 		this.status = status;
 	}
 
-	public boolean isStatus()
+	public String getNome()
 	{
-		return status;
+		return this.nome;
+	}
+	
+	public void setNome(String nome)
+	{
+		this.nome = nome;
+	}
+	
+	public boolean getStatus()
+	{
+		return this.status;
 	}
 
 	public void setStatus(boolean status) 
@@ -22,21 +33,15 @@ public class Arcondicionado implements Dispositivo
 
 	public String toString() 
 	{
-		return "Arcondicionado status: " + status;
+		return "Arcondicionado\nStatus: " + status;
 	}
-
-	public boolean equals(Object obj) 
+	
+	public boolean equals(Dispositivo arc)
 	{
-		if (this == obj)
+		if(this.nome.equals(arc.getNome()))
+		{
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Arcondicionado other = (Arcondicionado) obj;
-		if (status != other.status)
-			return false;
-		return true;
+		}
+		return false;
 	}
-
 }

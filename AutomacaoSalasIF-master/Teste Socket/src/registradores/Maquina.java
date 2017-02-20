@@ -2,60 +2,54 @@ package registradores;
 
 public class Maquina implements Dispositivo 
 {
-	
 	private String nome;
 	private String MAC;
 	private String IP;
 	private boolean status;
 	
-	public Maquina(String nome, String mAC, String iP, boolean status) 
+	public Maquina(String nome, String MAC, String IP, boolean status) 
 	{
-		super();
 		this.nome = nome;
-		MAC = mAC;
-		IP = iP;
+		this.MAC = MAC;
+		this.IP = IP;
 		this.status = status;
 	}
-	
-	public Maquina(String mAC, String iP, boolean status) 
-	{
-		super();
-		MAC = mAC;
-		IP = iP;
-		this.status = status;
-	}
-
 
 	public String getNome() 
 	{
-		return nome;
+		return this.nome;
 	}
+	
 	public void setNome(String nome) 
 	{
 		this.nome = nome;
 	}
+	
 	public String getMAC() 
 	{
-		return MAC;
+		return this.MAC;
 	}
-	public void setMAC(String mAC) 
+	
+	public void setMAC(String MAC) 
 	{
-		MAC = mAC;
+		this.MAC = MAC;
 	}
+	
 	public String getIP() 
 	{
-		return IP;
-	}
-	public void setIP(String iP) 
-	{
-		IP = iP;
+		return this.IP;
 	}
 	
-	
-	public boolean isStatus() 
+	public void setIP(String IP) 
 	{
-		return status;
+		this.IP = IP;
 	}
+	
+	public boolean getStatus() 
+	{
+		return this.status;
+	}
+	
 	public void setStatus(boolean status) 
 	{
 		this.status = status;
@@ -63,38 +57,16 @@ public class Maquina implements Dispositivo
 	
 	public String toString() 
 	{
-		return "Maquina nome: " + nome + ", MAC: " + MAC + ", IP: " + IP + ", status: " + status;
+		return "Máquina\nNome: " + this.nome + "\nMAC: " + MAC + "\nIP: " + IP + ",\nStatus: " + status;
 	}
 	
-	public boolean equals(Object obj) 
+	public boolean equals(Dispositivo maquina)
 	{
-		if (this == obj)
+		if(this.MAC.equals(((Maquina)maquina).getMAC()))
+		{
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Maquina other = (Maquina) obj;
-		if (IP == null) {
-			if (other.IP != null)
-				return false;
-		} else if (!IP.equals(other.IP))
-			return false;
-		if (MAC == null) {
-			if (other.MAC != null)
-				return false;
-		} else if (!MAC.equals(other.MAC))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (status != other.status)
-			return false;
-		return true;
+		}
+		return false;
 	}
-	
-	
 
 }

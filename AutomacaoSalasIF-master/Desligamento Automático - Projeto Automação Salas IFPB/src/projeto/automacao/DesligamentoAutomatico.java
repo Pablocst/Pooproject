@@ -2,8 +2,8 @@ package projeto.automacao;
 
 public class DesligamentoAutomatico
 {
-    private static String OS = System.getProperty("os.name").toLowerCase();
-    public static void main(String[] args) throws Exception
+    private static String OS = System.getProperty("os.name").toLowerCase(); //função que pega o nome do sistema operacional
+    public static void main(String[] args) throws Exception //mediante ao retorno das funções abaixo ele escolherá que comandos seguir para desligar o OS
     {
     	if (isWindows())
     	{
@@ -24,7 +24,7 @@ public class DesligamentoAutomatico
     		Runtime.getRuntime().exec (commandLin);
         }
     }
-    public static boolean isWindows()
+    public static boolean isWindows() 
     {
         return (OS.indexOf("win") >= 0);
     }

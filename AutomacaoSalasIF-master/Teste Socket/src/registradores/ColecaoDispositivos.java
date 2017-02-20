@@ -1,11 +1,13 @@
 package registradores;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 import java.util.ArrayList;
 
-public class ColecaoDispositivos 
+public class ColecaoDispositivos
 {
 	private ArrayList<Dispositivo> dispositivos;
-	
 	
 	public ColecaoDispositivos()
 	{
@@ -21,8 +23,52 @@ public class ColecaoDispositivos
 				return false;
 			}
 		}
+	
 		dispositivos.add(dispositivo);
 		return true;
+	}
+
+	public Dispositivo getDispositivo(int i)
+	{
+		return dispositivos.get(i);
+	}
+	
+	public void limparColecao()
+	{
+		dispositivos = null;
+	}
+	
+	public void excluirMaquinas()
+	{
+		for(int i = dispositivos.size() - 1; i >= 0; i--)
+		{
+			if(dispositivos.get(i) instanceof Maquina)
+			{
+				removeDispositivo(dispositivos.get(i));
+			}
+		}
+	}
+	
+	public void excluirArcondicionados()
+	{
+		for(int i = dispositivos.size() - 1; i >= 0; i--)
+		{
+			if(dispositivos.get(i) instanceof Arcondicionado)
+			{
+				removeDispositivo(dispositivos.get(i));
+			}
+		}
+	}
+	
+	public void excluirDatashows()
+	{
+		for(int i = dispositivos.size() - 1; i >= 0; i--)
+		{
+			if(dispositivos.get(i) instanceof Datashow)
+			{
+				removeDispositivo(dispositivos.get(i));
+			}
+		}
 	}
 	
 	public int listagemDispositivos()
@@ -51,5 +97,24 @@ public class ColecaoDispositivos
 	public int size()
 	{
 		return dispositivos.size();
+	}
+	public boolean adicionaDispositivotxt (Dispositivo dispositivo)
+	{
+		try
+		{
+			FileWriter writer = new FileWriter("C:/poostorage/Dispositivos.txt"); 
+			for(int i = 0; i < dispositivos.size(); i++)
+			{
+				writer.write(dispositivos.get(i).getNome());
+			}
+			writer.close();
+			
+		}catch(IOException ex)
+		{
+	        System.out.println (ex.toString());
+	        System.out.println("Arquivo não encontrado");
+	        return false;
+	    }
+		return true;
 	}
 }
