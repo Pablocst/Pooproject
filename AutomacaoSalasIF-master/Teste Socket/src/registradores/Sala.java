@@ -1,7 +1,13 @@
 package registradores;
 
-public class Sala
+import java.io.Serializable;
+
+public class Sala implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7370526043455390603L;
 	private String nome;
 	private ColecaoDispositivos coldis = null;
 	

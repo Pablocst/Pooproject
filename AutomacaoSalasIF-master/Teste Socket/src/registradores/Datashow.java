@@ -1,7 +1,13 @@
 package registradores;
 
-public class Datashow implements Dispositivo
+import java.io.Serializable;
+
+public class Datashow implements Dispositivo, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3878983661396577350L;
 	private String nome;
 	private boolean status;
 	

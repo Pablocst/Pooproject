@@ -2,38 +2,73 @@ package registradores;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.net.InetAddress;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class RegistraMaquinas extends Thread
 {	
-	public void run(ColecaoDispositivos coldis) throws IOException, Exception
+	
+	ColecaoInstituicoes colinst;
+	ColecaoDispositivos coldis;
+	int porta;
+	
+	public RegistraMaquinas(ColecaoInstituicoes colinst, ColecaoDispositivos coldis, int porta)
 	{
-		boolean status = false;
-		ServerSocket servidor = new ServerSocket(60050);
+		this.colinst = colinst;
+		this.coldis = coldis;
+		this.porta = porta;
+	}
+	
+	@SuppressWarnings("resource")
+	public void run()
+	{
+		Maquina maquina = null;
+		ServerSocket servidor = null;
+		try
+		{
+			servidor = new ServerSocket(porta);
+		}
+		catch (IOException e)
+		{
+			System.err.println(e.getMessage());
+		}
+		Socket cliente = null;
 		while(true)
 		{
-			Socket cliente;
 			try
 			{
 				cliente = servidor.accept();
 			}
 			catch(IOException e)
 			{
-				throw new IOException("Conexão Interrompida!");
+				System.err.println(e.getMessage());
 			}
-			DataInputStream entrada = new DataInputStream(cliente.getInputStream());
-			String MAC = entrada.readUTF();
-			String IP = cliente.getInetAddress().toString().replace("/", "");
-			String nome = InetAddress.getByName(IP).getCanonicalHostName().replaceAll("/", "");
-			Dispositivo dispositivo = new Maquina(MAC, nome, IP, status);
-			if(!coldis.adicionaDispositivo(dispositivo))
+			DataInputStream entradaBool = null;
+			ObjectInputStream entradaObj = null;
+			try
 			{
-				coldis.removeDispositivo(dispositivo);
-				coldis.adicionaDispositivo(dispositivo);
+				entradaBool = new DataInputStream(cliente.getInputStream());
 			}
-			servidor.close();
+			catch (IOException e)
+			{
+				System.err.println(e.getMessage());
+			}
+			try
+			{
+				if(entradaBool.readBoolean())
+				{
+					entradaObj = new ObjectInputStream(cliente.getInputStream());
+					maquina = (Maquina) entradaObj.readObject();
+					coldis.adicionaDispositivo(maquina);
+					colinst.gravaArquivo();
+				}
+				entradaBool.close();
+			}
+			catch(Exception e)
+			{
+				System.err.println(e.getMessage());
+			}
 		}
 	}
 }
